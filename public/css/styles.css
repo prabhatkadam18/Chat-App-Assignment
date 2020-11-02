@@ -1,10 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {
   margin: 0;
   padding: 0;
 }
 
-body {
-  background-color: #ece8e8;
+.main {
+  text-align: center;
+  position: relative;
+  padding: 1%;
+}
+
+body, html {
+  background-color: #e8e8e8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .avatar {
@@ -39,25 +47,116 @@ body {
   margin-right: 10px;
 }
 
+.heading {
+  text-align: left;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #495464;
+  border-bottom-width: 0;
+}
+
 .owner-name {
   text-transform: uppercase;
   text-align: left;
   font-weight: bold;
 }
 
-.text-wrapper {
-  margin-left: auto;
-  margin-right: 100px;
-  background-color: beige;
+
+.joinInner {
+  height: 280px;
+  text-align: center;
+  padding-top: 1px;
+  border-radius: 8% 3%;
+  width: 340px;
+  background-color: #f4f4f2;
+  margin: 120px auto;
+  box-shadow: 7px 7px 60px 10px rgb(192, 188, 188);
 }
 
-#textarea {
-  padding: 10px;
-  margin-top: 20px;
-  /* height: 100%; */
-  width: 80%;
+
+.avatarImg {
+  border-radius: 100%;
+  height: 50%;
+  margin: 45px 40px;
 }
 
-.buttons {
-  margin-top: 50vh;
+.outerAvatar {
+  height: 240px;
+  display: inline-flex;
+  box-shadow: 5px 5px 20px 2px rgb(192, 188, 188);
+  border-radius: 15% 5%;
+  margin: 18px;
+  width: 210px;
+  background-color: #f4f4f2;
+  transition: ease-in-out;
+  transition-duration: 200ms;
+}
+
+.outerAvatar:hover {
+  box-shadow: 5px 5px 20px 2px rgb(126, 123, 123);
+  height: 260px;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+  width: 230px;
+}
+
+.box {
+  display: flex;
+  width: 63%;
+  height: 8px;
+  margin: 5px 0px 60px 0px;
+}
+
+.box-sm {
+  height: 8px;
+  margin: 0;
+  flex-grow: 1;
+  transition: all .8s ease-in-out;
+  cursor: pointer;
+}
+
+.box-sm:hover {
+  flex-grow: 12;
+}
+
+.hr,
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hr {
+  background: #424242;
+  height: 100%;
+  margin: 20px;
+  padding: 20px;
+  outline: 1px dashed #98abb9;
+  outline-offset: -5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2), 0 4px 4px rgba(0, 0, 0, 0.1), 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.red {
+  background-color: #FF5852;
+}
+
+.orange {
+  background-color: #FF9000;
+}
+
+.yellow {
+  background-color: #FFD300;
+}
+
+.green {
+  background-color: #3DCD49;
+}
+
+.blue {
+  background-color: #0089D7;
+}
+
+.purple {
+  background-color: #9E44C4;
 }

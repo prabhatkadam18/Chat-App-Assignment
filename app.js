@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
@@ -21,11 +21,29 @@ var messages = [];
 var members = [];
 var roomCreated = false;
 var currentOwner = null;
-var ownerID = null;
 var ownerAvatar = null;
 
+
+
 io.on('connection', (socket) => {
-  console.log("New Connection");
+  
+  function deleteRoom() {
+    roomCreated = false;
+    currentOwner = null;
+    ownerAvatar = null;
+    messages = [];
+    io.emit('avatarRedirect');
+  }
+
+  function leaveRoom(name){
+    members = members.filter(member => member.name !== name);
+    if(name === currentOwner){
+      deleteRoom();
+    }
+    else {
+      io.emit('home', name);
+    }
+  }
  
   socket.on('createRoom', room =>{
     roomCreated = true;
@@ -35,14 +53,8 @@ io.on('connection', (socket) => {
     io.emit('chat');
   });
 
-  socket.on('deleteRoom', () => {
-    roomCreated = false;
-    members = members.filter( member => member !== currentOwner);
-    currentOwner = null;
-    ownerID = null;
-    ownerAvatar = null;
-    messages = [];
-    io.emit('avatarRedirect');
+  socket.on('leaveRoom', ({name}) => {
+    leaveRoom(name);
   });
 
   socket.on('sendMessage', message =>{
@@ -51,13 +63,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log('User Left');
   });
 });
 
-
 function avatarMiddleware(req, res, next) {
-  if(!members.includes(req.params.name)){
+  if(!foundName(req.params.name)){
     res.redirect('/');
   } else if(!roomCreated) {
     next();
@@ -67,7 +77,7 @@ function avatarMiddleware(req, res, next) {
 }
 
 function chatroomMiddleware(req, res, next) {
-  if(!members.includes(req.params.name)){
+  if(!foundName(req.params.name)){
     res.redirect('/');
   } else if(roomCreated) {
     next();
@@ -78,13 +88,13 @@ function chatroomMiddleware(req, res, next) {
 
 
 app.get('/', (req, res)=>{
-  return res.render('index');
+  return res.render('join');
 });
 
 app.post('/adduser', (req, res)=>{
   var name = req.body.name.trim();
   if( !foundName (name)){
-    members.push(name);
+    members.push({name, id: req.body.id});
     res.send("OK");
   } else {
     res.send("BAD");
@@ -116,7 +126,7 @@ app.get('/chatroom/:name',chatroomMiddleware, (req, res)=>{
 })
 
 function foundName(name){
-  var found = members.find((member)=> member === name);
+  var found = members.find((member)=> member.name === name);
   if(found){
     return true;
   } return false;

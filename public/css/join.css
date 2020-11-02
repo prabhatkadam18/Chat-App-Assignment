@@ -1,0 +1,46 @@
+
+.joinHeading {
+  margin-left: 20px;
+}
+
+.joinText {
+  color: #495464;
+  margin-top: 20px;
+  font-size: 45px;
+}
+
+.joinInput {
+  border: none;
+  background-color: #bbbfca;
+  padding: 25px;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 15px;
+  height: 30px;
+  width: 67%;
+}
+
+.joinInput:focus {
+  outline: none;
+  box-shadow: 1px 1px 8px 1px #495464;
+}
+
+.joinBtn {
+  color: #495464;
+  text-decoration: none;
+  background:#3DCD49;
+  padding: 6px 9px;
+  margin: 5px auto;
+  font-size: 25px;
+  border-radius: 10%;
+  display: inline-block;
+  border: none;
+  width: 70px;
+  height: 45px;
+}
+
+.joinBtn:hover {
+  box-shadow: 1px 1px 5px 1px #495464;
+}
